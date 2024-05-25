@@ -38,36 +38,31 @@ def main():
     driver.maximize_window()
 
     # Send a get request to the url
-    # driver.get('https://rise.iii.org.tw/rise_front/#/view/form/z7rxvsrewmd6s3r2')
+    driver.get('https://rise.iii.org.tw/rise_front/#/view/form/z7rxvsrewmd6s3r2')
     original_window = driver.current_window_handle
     driver.implicitly_wait(90)
     # time.sleep(3)
-    with open("store_1.csv", "r") as csvfile:
+
+    logging_message("Start Process:")
+    login = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[3]/button[1]')
+    driver.execute_script("arguments[0].click();", login)
+
+    guestLogin = driver.find_element(By.XPATH, '//*[@id="all_2"]/div/div[2]/div[3]/div/button[1]')
+    driver.execute_script("arguments[0].click();", guestLogin)
+
+    time.sleep(2)
+    menuButton = driver.find_element(By.XPATH, '//*[@id="all_2"]/div[1]/div[10]/table/tbody/td/p/a')
+    driver.execute_script("arguments[0].click();", menuButton)
+
+    with open("store_2.csv", "r") as csvfile:
         csvreader = csv.reader(csvfile)
         next(csvreader)
         next(csvreader)
-        # for row in csvreader:
         for index, row in enumerate(csvreader):
-            # driver.execute_script("window.open('');")
-            # driver.switch_to.window(driver.window_handles[1])
             driver.switch_to.new_window('tab')
-            driver.get('https://rise.iii.org.tw/rise_front/#/view/form/z7rxvsrewmd6s3r2')
+            driver.get('https://rise.iii.org.tw/rise_front/#/view/form/btip1i8j523d99uu')
 
             try:
-                print(row)
-                print(index)
-                if index == 0:
-                    logging_message("Start Process:")
-                    login = driver.find_element(By.XPATH, '/html/body/div[2]/div/div[3]/button[1]')
-                    driver.execute_script("arguments[0].click();", login)
-
-                    guestLogin = driver.find_element(By.XPATH, '//*[@id="all_2"]/div/div[2]/div[3]/div/button[1]')
-                    driver.execute_script("arguments[0].click();", guestLogin)
-
-                    time.sleep(2)
-                    menuButton = driver.find_element(By.XPATH, '//*[@id="all_2"]/div[1]/div[10]/table/tbody/td/p/a')
-                    driver.execute_script("arguments[0].click();", menuButton)
-
                 # 是否同意
                 time.sleep(2)
                 agree = driver.find_element(By.XPATH, '//*[@id="read-first"]/div[2]/div[1]/input')
