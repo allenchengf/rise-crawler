@@ -54,7 +54,7 @@ def main():
     menuButton = driver.find_element(By.XPATH, '//*[@id="all_2"]/div[1]/div[10]/table/tbody/td/p/a')
     driver.execute_script("arguments[0].click();", menuButton)
 
-    with open("store_2.csv", "r") as csvfile:
+    with open("store.csv", "r", encoding="utf-8") as csvfile:
         csvreader = csv.reader(csvfile)
         next(csvreader)
         next(csvreader)
@@ -409,8 +409,8 @@ def main():
                 logging_message(e)
                 print(e)
 
-        time.sleep(30)
-        driver.quit()
+        # time.sleep(30)
+        # driver.quit()
         print("Process Done!")
 
 
